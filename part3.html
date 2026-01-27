@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const players = [
+        {
+          name: "Messi",
+          position: "Forward",
+          age: 36,
+          goals: 25,
+          assists: 15,
+          matches: 34,
+        },
+        {
+          name: "Ronaldo",
+          position: "Forward",
+          age: 39,
+          goals: 30,
+          assists: 10,
+          matches: 38,
+        },
+        {
+          name: "Neymar",
+          position: "Forward",
+          age: 32,
+          goals: 18,
+          assists: 20,
+          matches: 20,
+        },
+      ];
+      function getFilteredTotalGoals(minGoals, teamPlayer) {
+        let total = 0;
+        let filter = teamPlayer.filter(e => e.goals > minGoals);
+        for (let i = 0; i < filter.length; i++) {
+          total += filter[i].goals;
+        }
+        return total;
+      }
+      console.log(getFilteredTotalGoals(20, players));
+    </script>
+  </body>
+</html>

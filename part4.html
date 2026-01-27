@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const players = [
+        { "name": "Messi", "years": 18, "salary": 100 },
+        { "name": "Ronaldo", "years": 20, "salary": 95 },
+        { "name": "Neymar", "years": 12, "salary": 90 },
+        { "name": "Mbappe", "years": 7, "salary": 85 },
+        { "name": "Haaland", "years": 5, "salary": 80 },
+        { "name": "Modric", "years": 22, "salary": 70 },
+        { "name": "Benzema", "years": 19, "salary": 75 }
+      ];
+      function analyzeSalary(minYears, teamPlayers) {
+        let filterYears = teamPlayers.filter(e => e.years >= minYears);
+        let salaryMax = filterYears[0].salary;
+        let salaryMin = filterYears[0].salary;
+        let total = 0;;
+        for (let i = 0; i < filterYears.length; i++) {
+            total += filterYears[i].salary;
+            if (filterYears[i].salary > salaryMax) {
+                salaryMax = filterYears[i].salary;
+            } else if (filterYears[i].salary < salaryMin) {
+                salaryMin = filterYears[i].salary;
+            }
+        }
+        console.log(`Tổng số lương của cầu thủ trên ${total}
+        Lương cầu thủ cao nhất: ${salaryMax}.
+        Lương cầu thủ thấp nhất: ${salaryMin}`);
+    }
+    analyzeSalary(5, players);
+    </script>
+</body>
+</html>

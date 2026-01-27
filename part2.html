@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const player = {
+        name: "De Bruyne",
+        position: "Midfielder",
+        goals: 8,
+        assist: 25,
+        matchesPlayed: 35,
+      };
+      function addPerformanceScore(player) {
+        player.performance =
+          (player.goals + player.assist) / player.matchesPlayed;
+        if (player.performance >= 1) {
+          player.iskeyValue = true;
+        } else {
+          player.iskeyValue = false;
+        }
+        console.log(player.performance);
+        console.log(player.iskeyValue);
+      }
+      console.log(addPerformanceScore(player));
+    </script>
+  </body>
+</html>

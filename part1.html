@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const player = {
+            name: "Messi",
+            position: "Forward",
+            age: 36,
+            goals: 900,
+        };
+        function showPlayerInfo(player) {
+            for (let i in player) {
+                console.log(`${player[i]}`);
+            }
+        }
+        showPlayerInfo(player);
+    </script>
+</body>
+</html>
