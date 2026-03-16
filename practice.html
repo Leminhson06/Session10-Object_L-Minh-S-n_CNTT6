@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const readline = require("readline");
+
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+function question(prompt) {
+  return new Promise((resolve) => rl.question(prompt, resolve));
+}
+
+let squad = [
+  { id: 1, name: "Nguyen Van A", goals: 10, position: "FW" },
+  { id: 2, name: "Tran Van B",   goals: 5,  position: "MF" },
+  { id: 3, name: "Le Van C",     goals: 0,  position: "DF" },
+  { id: 4, name: "Pham Van D",   goals: 12, position: "FW" },
+  { id: 5, name: "Dang Van E",   goals: 0,  position: "GK" },
+];
+
+function printLine() {
+  console.log("-".repeat(40));
+}
+
+function showSquad() {
+  printLine();
+  console.log("=> DANH SACH:");
+  if (squad.length === 0) {
+    console.log("   (Doi hinh trong)");
+    return;
+  }
+  squad.forEach((player) => {
+    console.log(`Ma ${player.id} - ${player.name} (${player.position}): ${player.goals} ban`);
+  });
+}
+
+async function addPlayer() {
+  printLine();
+  const name = (await question("Nhap ten cau thu: ")).trim();
+  const goals = parseInt(await question("Nhap so ban thang: "));
+  const position = (await question("Nhap vi tri (FW/MF/DF/GK): ")).trim().toUpperCase();
+
+  if (!name || isNaN(goals) || !position) {
+    console.log("[Loi] Thong tin khong hop le.");
+    return;
+  }
+
+  const newId = squad.length > 0 ? Math.max(...squad.map((p) => p.id)) + 1 : 1;
+  const newPlayer = { id: newId, name, goals, position };
+  squad.push(newPlayer);
+  console.log(`=> Da them: Ma ${newId} - ${name} (${position}): ${goals} ban`);
+}
+
+async function findPlayer() {
+  printLine();
+  const id = parseInt(await question("Nhap ID can tim: "));
+  const player = squad.find((p) => p.id === id);
+  if (!player) {
+    console.log(`=> Khong tim thay cau thu voi ID ${id}.`);
+    return;
+  }
+  console.log("=> Thong tin cau thu:");
+  console.log(`   Ma       : ${player.id}`);
+  console.log(`   Ten      : ${player.name}`);
+  console.log(`   Vi tri   : ${player.position}`);
+  console.log(`   Ban thang: ${player.goals}`);
+}
+
+async function updateGoals() {
+  printLine();
+  const id = parseInt(await question("Nhap ID cau thu vua ghi ban: "));
+  const player = squad.find((p) => p.id === id);
+  if (!player) {
+    console.log(`=> Khong tim thay cau thu voi ID ${id}.`);
+    return;
+  }
+  player.goals += 1;
+  console.log(`=> Da cap nhat: ${player.name} hien co ${player.goals} ban thang.`);
+}
+
+async function removePlayer() {
+  printLine();
+  const id = parseInt(await question("Nhap ID cau thu can chuyen nhuong: "));
+  const index = squad.findIndex((p) => p.id === id);
+  if (index === -1) {
+    console.log(`=> Khong tim thay cau thu voi ID ${id}.`);
+    return;
+  }
+  const removed = squad[index];
+  squad.splice(index, 1);
+  console.log(`=> Da chuyen nhuong: ${removed.name} (${removed.position}) khoi doi.`);
+}
+
+function showMenu() {
+  printLine();
+  console.log("--- FOOTBALL MANAGER PRO ---");
+  printLine();
+  console.log("1. Xem doi hinh");
+  console.log("2. Them cau thu");
+  console.log("3. Tim kiem (theo ID)");
+  console.log("4. Cap nhat ban thang");
+  console.log("5. Xoa cau thu (Chuyen nhuong)");
+  console.log("0. Thoat");
+  printLine();
+}
+
+async function main() {
+  while (true) {
+    showMenu();
+    const choice = (await question("Ban chon: ")).trim();
+    switch (choice) {
+      case "1": showSquad();        break;
+      case "2": await addPlayer();  break;
+      case "3": await findPlayer(); break;
+      case "4": await updateGoals(); break;
+      case "5": await removePlayer(); break;
+      case "0":
+        console.log("Tam biet!");
+        rl.close();
+        return;
+      default:
+        console.log("[Loi] Lua chon khong hop le, vui long chon lai.");
+    }
+  }
+}
+
+main();
+    </script>
+</body>
+</html>
